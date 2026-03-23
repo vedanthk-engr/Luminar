@@ -1,0 +1,252 @@
+.grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.tabs {
+  display: flex;
+  background: var(--bg1);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  border-radius: 4px;
+}
+
+.activeTab {
+  background: var(--glass-hi);
+  color: var(--text);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.dropZone {
+  height: 200px;
+  border: 1px dashed var(--border-hi);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--glass);
+  transition: background 0.2s;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dropZone:hover {
+  background: var(--glass-hi);
+}
+
+.placeholder {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.previewWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.clearBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 12px;
+}
+
+.textarea {
+  width: 100%;
+  height: 140px;
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.samples {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.sampleBtn {
+  background: var(--glass-mid);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.sampleBtn:hover {
+  background: var(--glass-hi);
+  color: var(--text);
+}
+
+.analyzeBtn {
+  width: 100%;
+  padding: 14px;
+  background: var(--crimson);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
+  letter-spacing: 1px;
+}
+
+.analyzeBtn:disabled {
+  background: var(--glass-mid);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--red);
+  font-size: 12px;
+  margin-top: 12px;
+  text-align: center;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeUp 0.4s ease;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px;
+  color: var(--dim);
+  font-size: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+}
+
+.scoreHeader {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.overallCirc {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.resTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.verdict {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.metaFlags {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.flag {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.chartWrap {
+  height: 220px;
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.proseGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.proseText {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.list {
+  padding-left: 16px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.list li {
+  margin-bottom: 8px;
+}
+
+.reframeCard {
+  border-left: 3px solid var(--gold);
+}

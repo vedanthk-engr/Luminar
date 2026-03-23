@@ -1,0 +1,14 @@
+{
+  "name": "luminary",
+  "version": "2.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd backend && python -m uvicorn main:app --reload --port 8000",
+    "frontend": "cd frontend && npm run dev",
+    "install:all": "cd frontend && npm install",
+    "install:backend": "cd backend && pip install -r requirements.txt"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

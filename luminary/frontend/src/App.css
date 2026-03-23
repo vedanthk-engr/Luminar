@@ -1,0 +1,24 @@
+.app-root {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg);
+  position: relative;
+}
+
+.app-main {
+  margin-left: 230px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1;
+  padding: 40px 40px 60px;
+  animation: fadeUp 0.4s ease forwards;
+}

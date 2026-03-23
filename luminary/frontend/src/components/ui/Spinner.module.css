@@ -1,0 +1,6 @@
+.spinner {
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 2.5px;
+  animation: spin 0.7s linear infinite;
+}
