@@ -11,7 +11,7 @@ export default function GlassCard({ children, className = '', accentColor, onCli
 
   return (
     <div 
-      className={`${styles.card} ${clickable ? styles.clickable : ''} ${className}`}
+      className={`${styles.card} ${clickable ? styles.clickable : ''} premium-hover ${className}`}
       style={customStyles}
       onClick={onClick}
       onMouseEnter={() => setHover(true)}

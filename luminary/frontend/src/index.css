@@ -92,3 +92,25 @@ input, textarea { font-family: var(--font-body); outline: none; resize: none; ba
   0%, 100% { opacity: 0.4; }
   50%      { opacity: 1; }
 }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.premium-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-hover:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 10px 30px -10px rgba(200,148,26,0.2);
+  border-color: rgba(200,148,26,0.3) !important;
+}
+
+/* ── UTILITIES ── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--gold-l), var(--violet-l));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
