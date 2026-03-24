@@ -33,6 +33,37 @@ Include exactly 8-10 festivals from diverse continents including Asia, Europe, A
 @router.post("/strategy")
 async def get_festival_strategy(body: FestivalRequest):
     try:
+        # Define strict schema for Festival Oracle
+        schema = {
+            "type": "OBJECT",
+            "properties": {
+                "project_assessment": {"type": "STRING"},
+                "tier": {"type": "STRING"},
+                "strategy": {"type": "STRING"},
+                "festivals": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "name": {"type": "STRING"},
+                            "location": {"type": "STRING"},
+                            "tier": {"type": "STRING"},
+                            "acceptance_probability": {"type": "INTEGER"},
+                            "submission_window": {"type": "STRING"},
+                            "why_this_festival": {"type": "STRING"},
+                            "category": {"type": "STRING"},
+                            "strategy_tip": {"type": "STRING"}
+                        },
+                        "required": ["name", "acceptance_probability", "submission_window"]
+                    }
+                },
+                "circuit_order": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "marketing_angle": {"type": "STRING"},
+                "avoid": {"type": "ARRAY", "items": {"type": "STRING"}}
+            },
+            "required": ["project_assessment", "tier", "strategy", "festivals"]
+        }
+
         prompt = f"""Film project:
 Title: {body.title}
 Genre: {body.genre}
@@ -41,7 +72,7 @@ Country: {body.country}
 Language: {body.language}
 Budget: {body.budget}
 Synopsis: {body.synopsis}"""
-        raw = await call_gemini_text(FESTIVAL_SYS, prompt)
+        raw = await call_gemini_text(FESTIVAL_SYS, prompt, response_schema=schema)
         result = parse_json_response(raw)
         return JSONResponse(content=result)
     except Exception as e:

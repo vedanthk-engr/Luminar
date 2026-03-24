@@ -35,7 +35,7 @@ export default function SceneAutopsy() {
   ] : [];
 
   return (
-    <div style={{ padding:"40px 40px 60px", animation:"fadeUp 0.4s ease forwards" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 60px" }}>
       <ModuleHeader badge="SCENE AUTOPSY" color={T.crimsonL} number="01" title="Scene Autopsy"
         sub="Upload a movie still or scene screenshot — or describe a scene — and LUMINARY's Vision AI delivers a frame-by-frame professional film critic analysis: cinematography breakdown, lighting dissection, narrative function, emotional palette, and specific improvement suggestions." />
 

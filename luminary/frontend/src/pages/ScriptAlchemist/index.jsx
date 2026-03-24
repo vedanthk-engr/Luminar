@@ -12,7 +12,7 @@ export default function ScriptAlchemist() {
   const { text, setText, loading, result, error, analyze } = useScriptAlchemist();
 
   return (
-    <div style={{ padding:"40px 40px 60px", animation:"fadeUp 0.4s ease forwards" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 60px" }}>
       <ModuleHeader color={T.gold} number="02" title="Script Alchemist"
         sub="Paste any screenplay, synopsis, or scene. LUMINARY returns genre classification, emotional arc analysis, budget estimation, production risk assessment, cinematic DNA references, and a full director's brief — all powered by real NLP intelligence."/>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:22, alignItems:"start" }}>

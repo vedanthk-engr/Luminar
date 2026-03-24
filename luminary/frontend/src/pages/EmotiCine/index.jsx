@@ -36,7 +36,7 @@ export default function EmotiCine() {
   };
   
   return (
-    <div style={{ padding:"40px 40px 60px", animation:"fadeUp 0.4s ease forwards" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 60px" }}>
       <ModuleHeader color={T.violetL} number="05" title="EmotiCine Analytics"
         sub="Visualize the complete emotional architecture of your film. Map joy, tension, fear, sadness, and surprise across every structural beat — identify where audiences peak, where they disengage, and where catharsis lands."/>
       <div style={{ background:T.glass, border:`1px solid ${T.border}`, borderRadius:14, padding:"18px 20px", marginBottom:20,

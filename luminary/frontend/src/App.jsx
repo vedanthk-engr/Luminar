@@ -7,7 +7,7 @@ import SceneAutopsy from './pages/SceneAutopsy'
 import ScriptAlchemist from './pages/ScriptAlchemist'
 import EmotiCine from './pages/EmotiCine'
 import ShotComposer from './pages/ShotComposer'
-import VeoPrompt from './pages/VeoPrompt'
+import PromptStudio from './pages/VeoPrompt'
 import FestivalOracle from './pages/FestivalOracle'
 import CineAccess from './pages/CineAccess'
 import CineChat from './pages/CineChat'
@@ -27,7 +27,7 @@ export default function App() {
             <Route path="/script"   element={<ScriptAlchemist />} />
             <Route path="/emotion"  element={<EmotiCine />} />
             <Route path="/shots"    element={<ShotComposer />} />
-            <Route path="/veo"      element={<VeoPrompt />} />
+            <Route path="/veo"      element={<PromptStudio />} />
             <Route path="/festival" element={<FestivalOracle />} />
             <Route path="/access"   element={<CineAccess />} />
             <Route path="/chat"     element={<CineChat />} />

@@ -54,11 +54,10 @@ export default function Sidebar() {
           
           return (
             <NavLink key={t.id} to={t.path}
+              className={`premium-hover ${isActive ? 'active-glow' : ''}`}
               style={{ display:"flex", alignItems:"center", gap:12, padding:"12px 14px", borderRadius:9,
-                textDecoration:"none", border:"none", background:isActive ? `linear-gradient(135deg,${t.color}14,${t.color}07)` : "transparent",
-                borderLeft:`2px solid ${isActive ? t.color : "transparent"}`, textAlign:"left", width:"100%", transition:"all 0.15s" }}
-              onMouseEnter={e=>{ if(!isActive) e.currentTarget.style.background='var(--glass)'; }}
-              onMouseLeave={e=>{ if(!isActive) e.currentTarget.style.background="transparent"; }}>
+                textDecoration:"none", border:"none", textAlign:"left", width:"100%", transition:"all 0.15s",
+                position:"relative" }}>
               {Icon && <Icon size={18} color={isActive ? t.color : 'var(--dim)'} strokeWidth={1.5} />}
               <div>
                 <div style={{ fontSize:12, fontWeight:isActive?700:500, color:isActive?t.color:'var(--muted)' }}>{t.label}</div>

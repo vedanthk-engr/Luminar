@@ -17,7 +17,7 @@ export default function CineChat() {
   useEffect(() => { ref.current?.scrollIntoView({ behavior:"smooth" }); }, [msgs, loading]);
 
   return (
-    <div style={{ padding:"40px 40px 0", animation:"fadeUp 0.4s ease forwards", display:"flex", flexDirection:"column", height:"calc(100vh - 40px)" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 0", display:"flex", flexDirection:"column", height:"calc(100vh - 40px)" }}>
       <ModuleHeader color={T.skyL} number="08" title="CineChat AI" sub="Your always-on cinema intelligence — script structure, cinematography theory, distribution strategy, Indian cinema expertise, and generative AI filmmaking."/>
       
       <div style={{ display:"flex", gap:7, flexWrap:"wrap", marginBottom:16, flexShrink:0 }}>

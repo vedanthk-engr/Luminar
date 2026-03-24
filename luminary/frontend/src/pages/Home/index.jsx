@@ -33,7 +33,7 @@ export default function Home() {
   ];
 
   return (
-    <div style={{ animation:"fadeUp 0.5s ease forwards" }}>
+    <div className="page-enter">
       {/* Hero */}
       <div style={{ textAlign:"center", padding:"48px 48px 32px", position:"relative", overflow:"hidden" }}>
         <div style={{ position:"absolute", inset:0, pointerEvents:"none" }}>

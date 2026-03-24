@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useVeoPrompt } from '../../hooks/useVeoPrompt';
+import { usePromptStudio } from '../../hooks/useVeoPrompt';
 import ModuleHeader from '../../components/ui/ModuleHeader';
 import GlassCard from '../../components/ui/GlassCard';
 import LoadingBox from '../../components/ui/LoadingBox';
@@ -7,7 +7,7 @@ import { FilmStrip } from '../../components/ui/CineImage';
 import { T } from '../../constants/theme';
 
 export default function PromptStudio() {
-  const { desc, setDesc, loading, statusText, result, error, copied, generate, copyPrompt, generateVideo, generatingVideo, videoResult } = useVeoPrompt();
+  const { desc, setDesc, loading, statusText, result, error, copied, generate, copyPrompt, generateVideo, generatingVideo, videoResult } = usePromptStudio();
   const [activePrompt, setActivePrompt] = useState("veo3");
 
   const samples = [
@@ -30,7 +30,7 @@ export default function PromptStudio() {
   ] : [];
 
   return (
-    <div style={{ padding:"40px 40px 60px", animation:"fadeUp 0.4s ease forwards" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 60px" }}>
       <ModuleHeader color={T.tealL} title="Prompt Studio"
         sub="Engineer precision prompts for Veo3, Runway Gen-3, and Pika Labs. Describe your vision in plain language — LUMINARY generates structured, cinematic-language generation prompts with camera specs, lighting parameters, color grade direction, negative prompts, and platform-specific optimizations."/>
 

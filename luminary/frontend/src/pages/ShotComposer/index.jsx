@@ -69,7 +69,7 @@ export default function ShotComposer() {
   ];
 
   return (
-    <div style={{ padding:"40px 40px 60px", animation:"fadeUp 0.4s ease forwards" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 60px" }}>
       <ModuleHeader color={T.skyL} number="03" title="Shot Composer"
         sub="Describe any scene and LUMINARY generates a complete professional shot list — camera angles, lens choices, movement choreography, lighting setup, duration, and directorial intent. Pre-visualize your film before production."/>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 2fr", gap:22, alignItems:"start" }}>

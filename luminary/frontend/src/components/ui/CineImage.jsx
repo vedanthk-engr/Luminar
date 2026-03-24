@@ -120,31 +120,80 @@ function drawCinematicFrame(canvas, prompt, seed) {
   ctx.fillRect(0, 0, w, h);
 }
 
-/**
- * CineImage — Procedurally generated cinematic frame.
- * No external API needed — generates unique art from the prompt text.
- */
 export default function CineImage({ prompt, width = 768, height = 432, seed = 42, label, style = {}, onClick }) {
   const canvasRef = useRef(null);
-  const [ready, setReady] = useState(false);
+  const [imgUrl, setImgUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (canvasRef.current && prompt) {
-      const canvas = canvasRef.current;
-      canvas.width = width;
-      canvas.height = height;
-      drawCinematicFrame(canvas, prompt, seed);
-      setReady(true);
-    }
+    let active = true;
+    const loadAiImage = async () => {
+      if (!prompt) return;
+      setLoading(true);
+      setError(false);
+      try {
+        const res = await fetch('/api/images/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt, aspect_ratio: "16:9" })
+        });
+        const data = await res.json();
+        if (active) {
+          if (data.image_b64) {
+            setImgUrl(`data:image/jpeg;base64,${data.image_b64}`);
+          } else {
+            console.warn("AI Image failed, falling back to canvas");
+            setError(true);
+            drawFallback();
+          }
+        }
+      } catch (err) {
+        console.error("Image fetch error:", err);
+        if (active) {
+          setError(true);
+          drawFallback();
+        }
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+
+    const drawFallback = () => {
+      if (canvasRef.current) {
+        const canvas = canvasRef.current;
+        canvas.width = width;
+        canvas.height = height;
+        drawCinematicFrame(canvas, prompt, seed);
+      }
+    };
+
+    loadAiImage();
+    return () => { active = false; };
   }, [prompt, width, height, seed]);
 
   return (
-    <div className={styles.cineImageWrap} style={{ width: '100%', aspectRatio: `${width}/${height}`, ...style }} onClick={onClick}>
-      <canvas
-        ref={canvasRef}
-        style={{ width: '100%', height: '100%', display: 'block', borderRadius: 'inherit' }}
-      />
-      {label && ready && <div className={styles.filmLabel}>{label}</div>}
+    <div className={`${styles.cineImageWrap} ${loading ? styles.loading : ''}`} 
+      style={{ width: '100%', aspectRatio: `${width}/${height}`, position: 'relative', overflow: 'hidden', ...style }} 
+      onClick={onClick}>
+      
+      {imgUrl && !loading ? (
+        <img src={imgUrl} alt={prompt} 
+          style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit', animation: 'fadeUp 0.6s ease forwards' }} />
+      ) : (
+        <canvas
+          ref={canvasRef}
+          style={{ width: '100%', height: '100%', display: 'block', borderRadius: 'inherit', filter: loading ? 'blur(10px) grayscale(1)' : 'none', transition: 'all 0.5s' }}
+        />
+      )}
+
+      {loading && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(4px)' }}>
+          <div className={styles.spinner}></div>
+        </div>
+      )}
+
+      {label && <div className={styles.filmLabel}>{label}</div>}
     </div>
   );
 }

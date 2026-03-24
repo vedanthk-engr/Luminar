@@ -34,7 +34,38 @@ Transform scene descriptions into precision-engineered generation prompts. Retur
 @router.post("/generate")
 async def generate_prompts(body: VeoRequest):
     try:
-        raw = await call_gemini_text(VEO_SYS, body.description)
+        # Define strict schema for VeoPrompt
+        schema = {
+            "type": "OBJECT",
+            "properties": {
+                "scene_title": {"type": "STRING"},
+                "veo3_prompt": {"type": "STRING"},
+                "runway_prompt": {"type": "STRING"},
+                "pika_prompt": {"type": "STRING"},
+                "negative_prompt": {"type": "STRING"},
+                "technical_specs": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "aspect_ratio": {"type": "STRING"},
+                        "duration_seconds": {"type": "INTEGER"},
+                        "fps": {"type": "INTEGER"},
+                        "resolution": {"type": "STRING"},
+                        "camera_motion": {"type": "STRING"},
+                        "lighting_style": {"type": "STRING"},
+                        "color_grade": {"type": "STRING"},
+                        "film_grain": {"type": "STRING"},
+                        "depth_of_field": {"type": "STRING"}
+                    }
+                },
+                "style_references": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "mood_keywords": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "prompt_tips": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "generation_warnings": {"type": "ARRAY", "items": {"type": "STRING"}}
+            },
+            "required": ["scene_title", "veo3_prompt"]
+        }
+
+        raw = await call_gemini_text(VEO_SYS, body.description, response_schema=schema)
         result = parse_json_response(raw)
         return JSONResponse(content=result)
     except Exception as e:

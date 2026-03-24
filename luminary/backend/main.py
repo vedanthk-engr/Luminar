@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-from routers import scene, script, shots, veo, veo_video, festival, access, chat
+from routers import scene, script, shots, veo, veo_video, festival, access, chat, images
 
 app = FastAPI(
     title="LUMINARY API",
@@ -29,6 +29,7 @@ app.include_router(veo_video.router,tags=["Veo Video Gen"])
 app.include_router(festival.router, prefix="/api/festival", tags=["Festival Oracle"])
 app.include_router(access.router,   prefix="/api/access",   tags=["CineAccess"])
 app.include_router(chat.router,     prefix="/api/chat",     tags=["CineChat"])
+app.include_router(images.router,   tags=["Image Generation"])
 
 @app.get("/health")
 def health():

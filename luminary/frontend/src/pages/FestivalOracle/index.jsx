@@ -11,7 +11,7 @@ export default function FestivalOracle() {
   const tierColors = { "A-List":T.gold, Prestige:T.goldL, Specialty:T.tealL, Regional:T.violetL };
 
   return (
-    <div style={{ padding:"40px 40px 60px", animation:"fadeUp 0.4s ease forwards" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 60px" }}>
       <ModuleHeader color={T.amber} number="06" title="Festival Oracle"
         sub="AI-powered international film festival strategy. Describe your project and LUMINARY maps your optimal submission circuit — with acceptance probability scores, tier classification, submission windows, and insider positioning tips for each festival."/>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1.6fr", gap:22, alignItems:"start" }}>

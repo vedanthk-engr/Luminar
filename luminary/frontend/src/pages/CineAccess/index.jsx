@@ -35,7 +35,7 @@ export default function CineAccess() {
   };
 
   return (
-    <div style={{ padding:"40px 40px 60px", animation:"fadeUp 0.4s ease forwards" }}>
+    <div className="page-enter" style={{ padding:"40px 40px 60px" }}>
       <ModuleHeader color={T.teal} number="07" title="CineAccess Studio"
         sub="Break every barrier cinema has ever built. AI generates professional-grade audio descriptions, cognitive adaptations, cultural localization notes, and deaf community adaptations — opening your film to 2.2 billion people globally."/>
       

@@ -17,13 +17,15 @@ Return ONLY a valid JSON object. No markdown. No preamble. No extra text. Just J
   "title": "Inferred film title or 'Untitled Scene'",
   "overall_score": 0-100,
   "verdict": "2-sentence powerful professional verdict",
-  "cinematography": 0-100,
-  "lighting": 0-100,
-  "composition": 0-100,
-  "narrative_power": 0-100,
-  "emotional_impact": 0-100,
-  "technical_execution": 0-100,
-  "color_grade": 0-100,
+  "scores": {
+    "cinematography": 0-100,
+    "lighting": 0-100,
+    "composition": 0-100,
+    "narrative_power": 0-100,
+    "emotional_impact": 0-100,
+    "technical_execution": 0-100,
+    "color_grade": 0-100
+  },
   "scene_type": "e.g. Establishing Shot / Climax / Exposition / Action",
   "dominant_emotion": "e.g. Dread / Hope / Isolation / Joy",
   "camera_analysis": "Technical observation: angle, lens type, depth of field, movement",
@@ -43,11 +45,47 @@ async def analyze_image(file: UploadFile = File(...)):
     try:
         contents = await file.read()
         b64, media_type = validate_and_encode_image(contents, file.content_type)
+        # Define strict schema for Scene Autopsy
+        schema = {
+            "type": "OBJECT",
+            "properties": {
+                "title": {"type": "STRING"},
+                "overall_score": {"type": "INTEGER"},
+                "verdict": {"type": "STRING"},
+                "scores": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "cinematography": {"type": "INTEGER"},
+                        "lighting": {"type": "INTEGER"},
+                        "composition": {"type": "INTEGER"},
+                        "narrative_power": {"type": "INTEGER"},
+                        "emotional_impact": {"type": "INTEGER"},
+                        "technical_execution": {"type": "INTEGER"},
+                        "color_grade": {"type": "INTEGER"}
+                    },
+                    "required": ["cinematography", "lighting", "composition", "narrative_power", "emotional_impact", "technical_execution", "color_grade"]
+                },
+                "scene_type": {"type": "STRING"},
+                "dominant_emotion": {"type": "STRING"},
+                "camera_analysis": {"type": "STRING"},
+                "lighting_analysis": {"type": "STRING"},
+                "color_palette": {"type": "STRING"},
+                "narrative_function": {"type": "STRING"},
+                "strengths": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "improvements": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "reference_directors": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "production_era_guess": {"type": "STRING"},
+                "reframe_suggestion": {"type": "STRING"}
+            },
+            "required": ["title", "overall_score", "verdict", "scores", "scene_type", "dominant_emotion"]
+        }
+        
         raw = await call_gemini_vision(
             AUTOPSY_SYS,
             "Analyze this film scene image with full professional critique.",
             b64,
-            media_type
+            media_type,
+            response_schema=schema
         )
         result = parse_json_response(raw)
         return JSONResponse(content=result)
@@ -60,9 +98,45 @@ async def analyze_image(file: UploadFile = File(...)):
 async def analyze_text(body: SceneTextRequest):
     """Analyze a scene from a text description."""
     try:
+        # Define strict schema for Scene Autopsy (reusing from analyze_image)
+        schema = {
+            "type": "OBJECT",
+            "properties": {
+                "title": {"type": "STRING"},
+                "overall_score": {"type": "INTEGER"},
+                "verdict": {"type": "STRING"},
+                "scores": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "cinematography": {"type": "INTEGER"},
+                        "lighting": {"type": "INTEGER"},
+                        "composition": {"type": "INTEGER"},
+                        "narrative_power": {"type": "INTEGER"},
+                        "emotional_impact": {"type": "INTEGER"},
+                        "technical_execution": {"type": "INTEGER"},
+                        "color_grade": {"type": "INTEGER"}
+                    },
+                    "required": ["cinematography", "lighting", "composition", "narrative_power", "emotional_impact", "technical_execution", "color_grade"]
+                },
+                "scene_type": {"type": "STRING"},
+                "dominant_emotion": {"type": "STRING"},
+                "camera_analysis": {"type": "STRING"},
+                "lighting_analysis": {"type": "STRING"},
+                "color_palette": {"type": "STRING"},
+                "narrative_function": {"type": "STRING"},
+                "strengths": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "improvements": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "reference_directors": {"type": "ARRAY", "items": {"type": "STRING"}},
+                "production_era_guess": {"type": "STRING"},
+                "reframe_suggestion": {"type": "STRING"}
+            },
+            "required": ["title", "overall_score", "verdict", "scores", "scene_type", "dominant_emotion"]
+        }
+
         raw = await call_gemini_text(
             AUTOPSY_SYS,
-            f"Analyze this described film scene as if you are watching it: \"{body.description}\""
+            f"Analyze this described film scene as if you are watching it: \"{body.description}\"",
+            response_schema=schema
         )
         result = parse_json_response(raw)
         return JSONResponse(content=result)

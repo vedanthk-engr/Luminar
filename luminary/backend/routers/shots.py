@@ -33,7 +33,40 @@ Generate exactly 6-8 shots. Be specific and professional."""
 @router.post("/compose")
 async def compose_shots(body: ShotRequest):
     try:
-        raw = await call_gemini_text(SHOTS_SYS, body.description)
+        # Define strict schema for Shot Composer
+        schema = {
+            "type": "OBJECT",
+            "properties": {
+                "scene_title": {"type": "STRING"},
+                "scene_mood": {"type": "STRING"},
+                "suggested_lens": {"type": "STRING"},
+                "color_grade": {"type": "STRING"},
+                "shots": {
+                    "type": "ARRAY",
+                    "items": {
+                        "type": "OBJECT",
+                        "properties": {
+                            "shot_number": {"type": "INTEGER"},
+                            "shot_type": {"type": "STRING"},
+                            "angle": {"type": "STRING"},
+                            "movement": {"type": "STRING"},
+                            "lens": {"type": "STRING"},
+                            "description": {"type": "STRING"},
+                            "lighting": {"type": "STRING"},
+                            "duration_seconds": {"type": "INTEGER"},
+                            "emotion": {"type": "STRING"}
+                        },
+                        "required": ["shot_number", "shot_type", "angle", "description"]
+                    }
+                },
+                "lighting_plan": {"type": "STRING"},
+                "sound_design_notes": {"type": "STRING"},
+                "director_note": {"type": "STRING"}
+            },
+            "required": ["scene_title", "scene_mood", "shots"]
+        }
+
+        raw = await call_gemini_text(SHOTS_SYS, body.description, response_schema=schema)
         result = parse_json_response(raw)
         return JSONResponse(content=result)
     except Exception as e:

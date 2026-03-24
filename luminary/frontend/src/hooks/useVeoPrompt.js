@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { generateVeoPrompts, generateVeoVideo, checkVeoVideoStatus } from '../api/client'
 
-export function useVeoPrompt() {
+export function usePromptStudio() {
   const [desc, setDesc] = useState('')
   const [loading, setLoading] = useState(false)
   const [statusText, setStatusText] = useState('')
