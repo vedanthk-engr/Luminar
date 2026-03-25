@@ -304,7 +304,7 @@ npm run dev
 ```
 
 ### 4. Run Both Together (Recommended)
-From the project root (`luminary/`):
+From the project root:
 ```bash
 npm install          # Installs concurrently
 npm run install:all  # Installs frontend packages
@@ -324,7 +324,7 @@ npm run dev          # Starts backend + frontend simultaneously
 ## 📁 Project Structure
 
 ```
-luminary/
+.
 ├── backend/
 │   ├── main.py                  # FastAPI app entry point
 │   ├── requirements.txt         # Python dependencies
